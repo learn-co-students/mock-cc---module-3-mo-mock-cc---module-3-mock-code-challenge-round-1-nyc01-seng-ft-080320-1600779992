@@ -98,16 +98,26 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(url + currentDogId, options)
             .then(response => response.json())
             .then(dog => {
-                const dogRow = document.querySelector(`tr[data-dog-id="${dog.id}"]`)
-                const dogNameTd = dogRow.querySelector('.dog-name')
-                const dogBreedTd = dogRow.querySelector('.dog-breed')
-                const dogSexTd = dogRow.querySelector('.dog-sex')
 
-                dogNameTd.textContent = dog.name
-                dogBreedTd.textContent = dog.breed
-                dogSexTd.textContent = dog.sex
-                const form = el 
+                const form = el
                 form.removeAttribute('data-current-dog-id')
+                const tableBody = document.querySelector('#table-body')
+                tableBody.innerHTML = ''
+                getDogsFromDbAndDisplay()
+
+                // following works as well. updates only the single TR for dog edited
+
+                
+                // const dogRow = document.querySelector(`tr[data-dog-id="${dog.id}"]`)
+                // const dogNameTd = dogRow.querySelector('.dog-name')
+                // const dogBreedTd = dogRow.querySelector('.dog-breed')
+                // const dogSexTd = dogRow.querySelector('.dog-sex')
+
+                // dogNameTd.textContent = dog.name
+                // dogBreedTd.textContent = dog.breed
+                // dogSexTd.textContent = dog.sex
+                // const form = el 
+                // form.removeAttribute('data-current-dog-id')
             })
         }
         form.reset()
