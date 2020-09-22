@@ -2,8 +2,8 @@
   "dogs": [
     {
       "id": 1,
-      "name": "Baby",
-      "breed": "Scottish",
+      "name": "Marzipan",
+      "breed": "Scottish Dane",
       "sex": "male"
     },
     {
@@ -44,7 +44,7 @@
     },
     {
       "id": 8,
-      "name": "Chloe",
+      "name": "Chloe bob",
       "breed": "Dandie Tery",
       "sex": "male"
     },
