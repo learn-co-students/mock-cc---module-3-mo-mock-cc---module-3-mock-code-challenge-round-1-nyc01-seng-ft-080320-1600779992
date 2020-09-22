@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       breed: e.target.breed.value,
       sex: e.target.sex.value
     }
+    e.target.reset()
     updateDog(e.target.submit.dataset.id, options)
   })
 
