@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         dogSexTd.textContent = dog.sex
                     })
                 }
+                form.reset()
             }
         })
 
