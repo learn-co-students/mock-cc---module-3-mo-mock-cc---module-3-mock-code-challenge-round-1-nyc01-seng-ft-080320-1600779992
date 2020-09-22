@@ -9,20 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const renderDogs = dogs => {
-        const tableBody = document.querySelector("#table-body")
-        tableBody.innerHTML = ""
+        document.querySelector("#table-body").innerHTML = ""
         dogs.map(renderDog)
     }
 
     const renderDog = dog => {
         const table = document.querySelector("#table-body")
         const tableRow = document.createElement("tr")
-        tableRow.innerHTML = `
-        <td>${dog.name}</td>
-        <td>${dog.breed}</td>
-        <td>${dog.sex}</td>
-        <td><button id="${dog.id}" class="edit-dog-btn">Edit</button></td>
-        `
+        tableRow.innerHTML = 
+            `<td>${dog.name}</td>
+            <td>${dog.breed}</td>
+            <td>${dog.sex}</td>
+            <td><button id="${dog.id}" class="edit-dog-btn">Edit Dog</button></td>`
+
         table.append(tableRow)
     }
 
