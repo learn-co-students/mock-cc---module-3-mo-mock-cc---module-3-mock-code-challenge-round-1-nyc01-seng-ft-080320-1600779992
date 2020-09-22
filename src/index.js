@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(baseUrl)
             .then(res => res.json())
             .then(data => renderDogs(data))
+            .catch(error => console.log(error))
         }
 
         const patchData = dogObj => {
@@ -89,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dogForm = (e.target)
             
             
-            if (dogForm.name.value === "") {
+            if (dogForm.name.id === "") {
                 alert("Please select a valid dog to edit")
             }
             else {
