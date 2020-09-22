@@ -1,3 +1,111 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const url = "http://localhost:3000/dogs/"
 
+    // sends a fetch request for all dog info from DB and renders it to the DOM
+
+    const getDogsFromDbAndDisplay = () => {
+        fetch(url)
+        .then(response => response.json())
+        .then(dogs => {
+            renderDogs(dogs)
+        })
+    }
+    // creates table rows for all dogs using the renderDog function
+
+    const renderDogs = dogs => {
+        for(const dog of dogs){
+            renderDog(dog)
+        }
+    }
+
+    // renders a single dog and creates a row element for it with individual info
+
+    const renderDog = dog => {
+        const tableBody = document.querySelector('#table-body')
+        const dogRow = document.createElement('tr')
+        dogRow.dataset.dogId = dog.id
+        dogRow.innerHTML = `
+            <td class="dog-name">${dog.name}</td>
+            <td class="dog-breed">${dog.breed}</td>
+            <td class="dog-sex">${dog.sex}</td>
+            <td>   
+                <button class="edit-button">Edit</button>
+            </td>
+        `
+        tableBody.append(dogRow)
+    }
+
+
+    const clickHandler = () => {
+        document.addEventListener('click', e => {
+            if(e.target.matches('.edit-button')){
+                updateFormWithDogInfo(e.target)
+            }
+        })
+    }
+
+    // prepopulates form with dog info when edit button is clicked
+
+    const updateFormWithDogInfo = el => {
+        const dogRow = el.parentElement.parentElement
+        const dogId = dogRow.dataset.dogId
+        const dogName = dogRow.querySelector('.dog-name').textContent
+        const dogBreed = dogRow.querySelector('.dog-breed').textContent
+        const dogSex = dogRow.querySelector('.dog-sex').textContent
+
+        const form = document.querySelector('#dog-form')
+        form.dataset.currentDogId = dogId
+        
+        const nameField = form.name
+        const breedField = form.breed
+        const sexField = form.sex
+
+        nameField.value = dogName
+        breedField.value = dogBreed
+        sexField.value = dogSex
+    }
+
+    const submitHandler = () => {
+        document.addEventListener('submit', e => {
+            if(e.target.matches('#dog-form')){
+                e.preventDefault()
+                const form = e.target
+                const currentDogId = e.target.dataset.currentDogId
+                //patch request with new data
+                const updatedDogObj = {
+                    name: form.name.value,
+                    breed: form.breed.value,
+                    sex: form.sex.value,
+                }
+
+                const options = {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accepts": "application/json"
+                    },
+                    body: JSON.stringify(updatedDogObj)
+                }
+                if(currentDogId){
+                    fetch(url + currentDogId, options)
+                    .then(response => response.json())
+                    .then(dog => {
+                        const dogRow = document.querySelector(`tr[data-dog-id="${dog.id}"]`)
+                        const dogNameTd = dogRow.querySelector('.dog-name')
+                        const dogBreedTd = dogRow.querySelector('.dog-breed')
+                        const dogSexTd = dogRow.querySelector('.dog-sex')
+    
+                        dogNameTd.textContent = dog.name
+                        dogBreedTd.textContent = dog.breed
+                        dogSexTd.textContent = dog.sex
+                    })
+                }
+            }
+        })
+
+    }
+
+    clickHandler()
+    submitHandler()
+    getDogsFromDbAndDisplay()
 })
