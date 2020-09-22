@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Baby",
       "breed": "Scottish Deerhound",
-      "sex": "male"
+      "sex": "maleee"
     },
     {
       "id": 2,
@@ -74,8 +74,8 @@
     },
     {
       "id": 13,
-      "name": "Lady",
-      "breed": "Mexicanhairless",
+      "name": "Cloudy",
+      "breed": "Samoyed",
       "sex": "female"
     },
     {
