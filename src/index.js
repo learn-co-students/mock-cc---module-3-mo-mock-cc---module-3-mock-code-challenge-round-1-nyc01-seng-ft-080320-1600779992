@@ -63,6 +63,10 @@ const clickHandler = () => {
     const dogBreed = inputFields[1].value;
     const dogSex = inputFields[2].value;
     
+    for (i = 0; i < 3; i ++) {
+      inputFields[i].value = '';
+    }
+    
     fetch(`http://localhost:3000/dogs/${dogId}`, {
       method: "PATCH",
       headers: {
