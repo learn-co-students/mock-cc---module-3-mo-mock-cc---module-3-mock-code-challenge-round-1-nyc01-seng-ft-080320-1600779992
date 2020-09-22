@@ -2,25 +2,25 @@
   "dogs": [
     {
       "id": 1,
-      "name": "Patches",
+      "name": "Lala",
       "breed": "English Springer",
       "sex": "male"
     },
     {
       "id": 2,
-      "name": "Patches",
+      "name": "Franklin",
       "breed": "English Springer",
       "sex": "male"
     },
     {
       "id": 3,
-      "name": "o",
+      "name": "Lola Jones",
       "breed": "English Springer",
       "sex": "male"
     },
     {
       "id": 4,
-      "name": "z",
+      "name": "Salamander",
       "breed": "Redbone",
       "sex": "female"
     },
@@ -80,13 +80,13 @@
     },
     {
       "id": 14,
-      "name": "Coco",
+      "name": "Samantha Lurio",
       "breed": "Maltese",
       "sex": "female"
     },
     {
       "id": 15,
-      "name": "o",
+      "name": "Mufasa",
       "breed": "English Springer",
       "sex": "male"
     },
@@ -104,19 +104,19 @@
     },
     {
       "id": 18,
-      "name": "rock",
+      "name": "Gertrude",
       "breed": "Redbone",
       "sex": "female"
     },
     {
       "id": 19,
-      "name": "o",
+      "name": "Mocha coco",
       "breed": "English Springer",
       "sex": "male"
     },
     {
       "id": 20,
-      "name": "c",
+      "name": "Sparrow",
       "breed": "Redbone",
       "sex": "female"
     }

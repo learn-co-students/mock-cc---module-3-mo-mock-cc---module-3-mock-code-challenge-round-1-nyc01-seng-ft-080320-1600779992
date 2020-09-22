@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderDogEditForm = target => {
         const id = target.dataset.id
+        
         const form = document.querySelector('form')
         const tableD = target.parentElement
         const tableRow = tableD.parentElement
@@ -22,15 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
         formBreed.value = dogInfo[1].textContent
         let formSex = form.sex
         formSex.value = dogInfo[2].textContent
-    
-        submitHandler(id)
+        
+        const button = form.lastElementChild
+        button.className = dogInfo[0].parentElement.dataset.id
+        // submitHandler(id)
         
      
     }
 
-    const submitHandler = (id) => {
-        // debugger
+    const submitHandler = () => {
+        
         document.addEventListener('submit', e=> {
+
+            const id = e.target.lastElementChild.className
+            
             e.preventDefault()
             const form = e.target
             const name = form.name.value
@@ -42,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                breed: breed,
                sex: sex
            }
-           
+            
            updateDog(newDogInfo, id)
            
         })
@@ -61,27 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         fetch(BASEURL+id, options)
         .then(response => response.json())
-        // .then(newDog => renderAllNew(newDog))
         .then(newDog => fetchDogs(BASEURL))
-        // .then(newDog => renderAllDogs(newDog))
     }
-
-    // const renderAllNew = updatedDog => {
-    //     fetch(BASEURL)
-    //     .then(response => response.json())
-    //     .then(dogs => renderDogs(dogs))
-
-    //     const tableBody = document.querySelector('tbody') 
-        
-    //     if(tableBody.firstElementChild){
-    //         const tableRowArray = tableBody.querySelectorAll('tr')
-    //         tableRowArray.forEach(tr => {
-    //             tr.remove()
-    //         })
-    //     }
-
-    //     console.log(updatedDog)
-    // }
 
     const fetchDogs = (url) => {
         
@@ -121,5 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchDogs(BASEURL)
     clickHandler()
+    submitHandler()
 })
 
