@@ -1,12 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     BASEURL = 'http://localhost:3000/dogs/'
 
-
-    // - Make a dog editable. Clicking on the edit button click handler
-    // next to a dog should populate the top form with that put info in form
-    // dog's current information.
-
-
     const clickHandler = () => {
         document.addEventListener('click', e => {
             if(e.target.matches('.edit')){

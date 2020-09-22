@@ -2,15 +2,15 @@
   "dogs": [
     {
       "id": 1,
-      "name": "tED",
-      "breed": "Rhodesian Ridgeback",
-      "sex": "female"
+      "name": "Patches",
+      "breed": "English Springer",
+      "sex": "male"
     },
     {
       "id": 2,
-      "name": "tED",
-      "breed": "Rhodesian Ridgeback",
-      "sex": "female"
+      "name": "Patches",
+      "breed": "English Springer",
+      "sex": "male"
     },
     {
       "id": 3,
@@ -86,9 +86,9 @@
     },
     {
       "id": 15,
-      "name": "Pepper",
-      "breed": "Westhighland Terrier",
-      "sex": "female"
+      "name": "o",
+      "breed": "English Springer",
+      "sex": "male"
     },
     {
       "id": 16,
@@ -110,9 +110,9 @@
     },
     {
       "id": 19,
-      "name": "ROCK",
-      "breed": "Redbone",
-      "sex": "female"
+      "name": "o",
+      "breed": "English Springer",
+      "sex": "male"
     },
     {
       "id": 20,
