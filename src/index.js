@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     getDogs()
     clickHandler()
+    submitHandler()
 })
 
 const BASE_URL = "http://localhost:3000/dogs/"
@@ -64,5 +65,50 @@ const getDogInfo = (dogRow, dogId) => {
     dog.breed = dogRow.querySelector('td[name="breed"]').textContent
     dog.sex = dogRow.querySelector('td[name="sex"]').textContent
     return dog
+}
+
+const submitHandler = () => {
+    document.addEventListener('submit', e => {
+        e.preventDefault()
+
+        const dogForm = e.target
+        const dogId = dogForm.lastElementChild.dataset.dogId
+
+        const dog = dogInfoFromForm(dogForm, dogId)
+
+        const options = {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dog)
+        }  
+
+        console.log(options)
+        fetch(BASE_URL + dogId, options)
+        .then(resp => resp.json())
+        .then(data => reRenderDog(data))
+
+        dogForm.reset()
+    })
+}
+
+const dogInfoFromForm = (form, id) => {
+    const dog = {}
+    dog.id = id
+    dog.name = form.name.value
+    dog.breed = form.breed.value
+    dog.sex = form.sex.value 
+    return dog 
+}
+
+const reRenderDog = (dogObj) => {
+    const dogRow = document.querySelector(`button[data-dog-id="${dogObj.id}"`).closest('tr')
+    dogRow.innerHTML = `
+        <td name="name">${dogObj.name}</td> 
+        <td name="breed">${dogObj.breed}</td> 
+        <td name="sex">${dogObj.sex}</td> 
+        <td><button data-dog-id= "${dogObj.id}">Edit Dog</button></td>
+    `
 }
 
