@@ -89,17 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
             breed: form.breed.value,
             sex: form.sex.value,
         }
-
-        const options = {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Accepts": "application/json"
-            },
-            body: JSON.stringify(updatedDogObj)
-        }
         if(currentDogId){
-            fetch(url + currentDogId, options)
+            fetch(url + currentDogId, patchRequestOptions(updatedDogObj))
             .then(response => response.json())
             .then(dog => {
                 const form = el
@@ -125,6 +116,18 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }
         form.reset()
+    }
+
+    const patchRequestOptions = dogObj => {
+        const options = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accepts": "application/json"
+            },
+            body: JSON.stringify(dogObj)
+        }
+        return options
     }
 
     clickHandler()
