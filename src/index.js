@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.append(dogRow)
     }
 
+    // click handler for edit button
 
     const clickHandler = () => {
         document.addEventListener('click', e => {
@@ -67,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sexField.value = dogSex
     }
 
+    // submit handler for form
+
     const submitHandler = () => {
         document.addEventListener('submit', e => {
             if(e.target.matches('#dog-form')){
@@ -74,8 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 getAndUpdateDogInfo(e.target)
             }
         })
-
     }
+
+    // gets dog info from form fields, updates in DB then re-renders dogs to DOM so updated info shows
 
     const getAndUpdateDogInfo = el => {
         const form = el
@@ -98,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(url + currentDogId, options)
             .then(response => response.json())
             .then(dog => {
-
                 const form = el
                 form.removeAttribute('data-current-dog-id')
                 const tableBody = document.querySelector('#table-body')
@@ -107,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // following works as well. updates only the single TR for dog edited
 
-                
+
                 // const dogRow = document.querySelector(`tr[data-dog-id="${dog.id}"]`)
                 // const dogNameTd = dogRow.querySelector('.dog-name')
                 // const dogBreedTd = dogRow.querySelector('.dog-breed')
@@ -118,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // dogSexTd.textContent = dog.sex
                 // const form = el 
                 // form.removeAttribute('data-current-dog-id')
+
             })
         }
         form.reset()
