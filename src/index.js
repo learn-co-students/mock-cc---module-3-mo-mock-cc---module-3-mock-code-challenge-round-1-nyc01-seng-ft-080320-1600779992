@@ -47,8 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // prepopulates form with dog info when edit button is clicked
 
     const updateFormWithDogInfo = el => {
-        const dogRow = el.parentElement.parentElement
+        
+        const dogRow = el.closest('tr')
         const dogId = dogRow.dataset.dogId
+    
         const dogName = dogRow.querySelector('.dog-name').textContent
         const dogBreed = dogRow.querySelector('.dog-breed').textContent
         const dogSex = dogRow.querySelector('.dog-sex').textContent

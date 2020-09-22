@@ -2,9 +2,9 @@
   "dogs": [
     {
       "id": 1,
-      "name": "Baby",
-      "breed": "Scottish Deerhound",
-      "sex": "maleee"
+      "name": "Bowser",
+      "breed": "Cane Corso",
+      "sex": "male"
     },
     {
       "id": 2,
