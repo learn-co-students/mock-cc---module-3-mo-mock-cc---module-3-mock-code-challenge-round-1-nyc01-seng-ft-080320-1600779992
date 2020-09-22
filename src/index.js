@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const renderDogs = dogs => {
+        const tableBody = document.querySelector("#table-body")
+        tableBody.innerHTML = ""
         dogs.map(renderDog)
     }
 
@@ -19,13 +21,77 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${dog.name}</td>
         <td>${dog.breed}</td>
         <td>${dog.sex}</td>
-        <td><button>Edit</button></td>
+        <td><button id="${dog.id}" class="edit-dog-btn">Edit</button></td>
         `
         table.append(tableRow)
     }
 
+    const clickHandler = () => {
+        document.addEventListener("click", (e) => {
+            if(e.target.matches(".edit-dog-btn")) {
+                const dogRow = e.target.closest("tr")
+                const dogData = getDogDataFromTable(dogRow);
+                renderForm(dogData)
+            }
+        })
+    }
 
+    const submitHandler = () => {
+        const form = document.querySelector("#dog-form")
+        form.addEventListener("submit", (e) => {
+            if (e.target.dataset.id) {
+                e.preventDefault();
+                updateDog(e.target)
+            } else {
+                e.preventDefault()
+            }
+        })
+    }
+
+    const updateDog = dogForm => {
+        const dog_id = dogForm.dataset.id
+        const dog_url = `${DOGS_BASE_URL}/${dog_id}`
+
+        const dogObj = {
+            id: dog_id,
+            name: dogForm.name.value,
+            breed: dogForm.breed.value,
+            sex: dogForm.sex.value
+        }
+
+        const fetchOptions = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(dogObj)
+        }
+
+        fetch(dog_url, fetchOptions)
+        .then(resp => resp.json())
+        .then(dog => getDogs())
+    }  
+
+    const getDogDataFromTable = dogRow => {
+        const dogData = {
+            name: dogRow.children[0].textContent,
+            breed: dogRow.children[1].textContent,
+            sex: dogRow.children[2].textContent,
+            id: dogRow.children[3].firstChild.id
+        }
+        return dogData
+    }
+
+    const renderForm = dogData => {
+        const form = document.querySelector("#dog-form")
+        form.name.value = dogData.name
+        form.breed.value = dogData.breed
+        form.sex.value = dogData.sex
+        form.dataset.id = dogData.id
+    }
+
+    submitHandler();
+    clickHandler();
     getDogs();
 })
-
-{/* <tbody id="table-body"> */}
