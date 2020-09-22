@@ -1,5 +1,7 @@
 # Westminster Kennel Club Dog Show
 
+Soroosh Golbabae
+
 You are responsible for managing the website for the Westminster Kennel Club Dog Show. These dog owners are _very_ competitive. We need to make sure that they can view all the competition (the other dogs) and edit their dog's information.
 
 ### Getting Started
