@@ -84,12 +84,12 @@ const submitHandler = () => {
             body: JSON.stringify(dog)
         }  
 
-        console.log(options)
         fetch(BASE_URL + dogId, options)
         .then(resp => resp.json())
-        .then(data => reRenderDog(data))
+        // .then(data => reRenderDog(data))
 
         dogForm.reset()
+        getDogs()
     })
 }
 
