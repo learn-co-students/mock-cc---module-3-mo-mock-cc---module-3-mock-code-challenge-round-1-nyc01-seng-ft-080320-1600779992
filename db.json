@@ -4,13 +4,13 @@
       "id": 1,
       "name": "Baby",
       "breed": "Scottish Deerhound",
-      "sex": "male"
+      "sex": "female"
     },
     {
       "id": 2,
       "name": "Teddy",
       "breed": "Rhodesian Ridgeback",
-      "sex": "female"
+      "sex": "male"
     },
     {
       "id": 3,
