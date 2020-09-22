@@ -1,9 +1,11 @@
 const BASE_URL = "http://localhost:3000/dogs"
+let DOG_ID = ''
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Loaded')
     const tableBody = document.getElementById("table-body")
     const dogForm = document.getElementById('dog-form')
+    const submitBtn = document.getElementsByClassName('submit-btn')
 
     // fetch data from API
     const fetchDogs = (url) => {
@@ -31,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // populates info into form
         const populateInfo = (dogId) => {
+            DOG_ID = dogId
+            
             fetch(BASE_URL+'/'+dogId)
             .then(response => response.json())
             .then((data) =>{ 
@@ -50,7 +54,41 @@ document.addEventListener('DOMContentLoaded', () => {
         })
 
         dogForm.addEventListener('click', ()=>{
-            console.log('working')
+            event.preventDefault()
+
+            const updateDog = () =>{
+                dogForm.childNodes[1].value
+                dogForm.childNodes[3].value
+                dogForm.childNodes[5].value
+    
+                const options = {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        name: dogForm.childNodes[1].value,
+                        breed: dogForm.childNodes[3].value,
+                        sex: dogForm.childNodes[5].value,
+                    }),
+                    headers: {
+                        "Content-type": "application/json",
+                        "accept": "application/json"
+                        },
+                }
+    
+                // need ID of the dog
+                fetch(BASE_URL+"/"+DOG_ID, options)
+                    .then(response => response.json())
+                    .then(json => console.log(json))    
+            }
+
+            switch (event.target.className) {
+                case 'submit-btn':
+                    updateDog()
+                    break;
+            }
+
+            
+            
+            
         })
     }
 
