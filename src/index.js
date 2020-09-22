@@ -39,10 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const editDog = dog =>{
         const form = document.querySelector("#dog-form")
-        form.name.value = dog.cells[0].innerText
-        form.breed.value = dog.cells[1].innerText
-        form.sex.value = dog.cells[2].innerText
-        form.dataset.id = dog.dataset.id
+            form.name.value = dog.cells[0].innerText
+            form.breed.value = dog.cells[1].innerText
+            form.sex.value = dog.cells[2].innerText
+            form.dataset.id = dog.dataset.id
     }
 
     const submitHandler = () => {
