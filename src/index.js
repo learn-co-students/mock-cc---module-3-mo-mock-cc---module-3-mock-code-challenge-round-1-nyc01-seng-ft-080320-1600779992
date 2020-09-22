@@ -28,7 +28,7 @@ const renderDogs = (dogs) => {
     newRow.append(newSex);
 
     const editButton = document.createElement('button');
-    editButton.textContent = 'Edit';
+    editButton.textContent = 'Edit Dog';
     newRow.append(editButton);
 
     tableBody.append(newRow);
