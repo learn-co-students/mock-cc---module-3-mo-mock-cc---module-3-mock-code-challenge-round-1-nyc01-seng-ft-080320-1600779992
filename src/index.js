@@ -47,7 +47,8 @@ function submitHandler(){
         const dogId = (e.submitter.className)
         let formInfo = {name: name, breed: breed, sex: sex}
         // console.log(formInfo)
-        updateDog(dogId, formInfo)
+        if (dogId !== ""){
+            updateDog(dogId, formInfo)}
         e.target.reset();
         e.submitter.className = ""
         fetchDogs()
@@ -65,6 +66,7 @@ function fillForm(button){
 }
 
 function updateDog(id, info){
+    
     const configObj = {
         method: "PATCH",
         headers: {"content-type" :"application/json",
@@ -75,7 +77,7 @@ function updateDog(id, info){
     .then(response => response.json())
     .then(dog => {
         console.log(dog);
-        fetchDogs()
-    })
+        fetchDogs()})
+    .catch(error=> console.error("NOOOO"))
 
 }

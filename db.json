@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Marzipan",
-      "breed": "Scottish Dane",
+      "breed": "Scottish Daner",
       "sex": "male"
     },
     {
@@ -14,9 +14,9 @@
     },
     {
       "id": 3,
-      "name": "Snickers",
-      "breed": "weiner",
-      "sex": "female"
+      "name": "Snicker doodle",
+      "breed": "weiner doggy",
+      "sex": "male"
     },
     {
       "id": 4,
