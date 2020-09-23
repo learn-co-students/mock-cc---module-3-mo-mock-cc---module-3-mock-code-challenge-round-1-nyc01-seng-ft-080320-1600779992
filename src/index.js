@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    //define variables needed
     const table  = document.getElementById('table-body');
+    
+    
     // fetch all dogs from DB
     let promisedDogs = dbDogs(getUrl('dogs'),null);
     // Render HTML Table with the Dogs data from DB
@@ -88,6 +91,7 @@ function setupSubmitListener(){
         const options = buildOptions(jsonDog, "PATCH");
         console.log("built options:", options);
         submitChanges(form.dataset.dogId, options);
+        form.reset();
     })
 }
 
