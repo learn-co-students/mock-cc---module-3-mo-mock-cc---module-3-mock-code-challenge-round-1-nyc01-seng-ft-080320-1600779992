@@ -1,77 +1,90 @@
 document.addEventListener('DOMContentLoaded', () => {
-const id = 1
-const baseUrl = 'http://localhost:3000/dogs'
+    baseUrl = 'http://localhost:3000/dogs/'
 
-const fetchBase = () => {
-    fetch(baseUrl)
-    .then(resp => resp.json())
-    .then(data => console.log(data))
-    .then(data => dogsRow(data))
-}
+    const fetchDogs = () => {
+        fetch(baseUrl)
+        .then(res => res.json())
+        .then(dogs => renderDogs(dogs))
+    }
 
-const dogsRow = dogsArray => {
-    for (dog of dogsArray) {
-        const dogRow = document.createElement('tr')
-        dogRow.dataset.id = dog.id
-        dog.innerHTML = `
-        <td>Dog *Name*</td> <td>*Dog Breed*</td> <td>*Dog Sex*</td> <td><button>Edit</button></td>
+    const renderDogs = dogs => {
+        for (let dog of dogs) {
+            // console.log(dog)
+            renderDog(dog)
+        }
+    }
+
+    const renderDog = dog => {
+        const dogTable = document.querySelector('#table-body')
+        const dogRows = document.createElement('tr')
+        dogRows.dataset.id = dog.id
+        dogRows.innerHTML = `
+        <td>${dog.name}</td> 
+        <td>${dog.breed}</td> 
+        <td>${dog.sex}</td> 
+        <td>
+            <button>Edit</button>
+        </td>
         `
-        const table = document.querySelector('#table-body')
-        table.appendChild(dogRow)
-
-    }
-}
-
-const formHandler = () => {
-    const dogForm = document.querySelector('#dog-form')
-    dogForm.addEventListener('submit', e => {
-        e.preventDefault()
-        const name = e.target.name.value
-        const breed = e.target.breed.value
-        const sex = e.target.sex.value
-
-        const dogInfo = {
-        name: name,
-        breed: breed,
-        sex: sex
-        }
-        editDog(dogInfo)
-    })
-}
-
-const editDog = dogInfo => {
-    let baseUrl = 'http://localhost:3000/dogs/:${id}'
-
-    options = {
-        method: PATCH,
-        headers: {
-            'content-type': 'application/json',
-            'body': 'application/json',
-        },
-        body: JSON.stringify(dogInfo)
+        dogTable.append(dogRows)
     }
 
-    fetch(baseUrl, options)
-    .then(resp => resp.json())
-    .then(data => editSingleDog(data))
-}
+    const clickHandler = () => {
+        document.addEventListener('click', e => {
+            if (e.target.textContent === 'Edit') {
+                const dogForm = document.querySelector('#dog-form')
+                const dogRow = e.target.closest('tr')
+                const dogId = dogRow.dataset.id
+                const cells = dogRow.children
+                
+                const name = cells[0].textContent
+                const breed = cells[1].textContent
+                const sex = cells[2].textContent
 
-const editSingleDog = (dogInfo) => {
+                dogForm.dataset.id = dogId
+                dogForm.name.value = name
+                dogForm.breed.value = breed
+                dogForm.sex.value = sex
 
-}
 
+            }
+        })
+    }
 
-const clickHandler = () => {
-    document.addEventListener('click', e => {
-        if (e.target.matches('edit')) {
-            // grab dog info from the table row
-            // populate info into form by setting the info equal to value
-        }
-    })
-}
+    const submitHandler = () => {
+        document.addEventListener('submit', e => {
+            e.preventDefault()
+            const dogForm = e.target
+            const dogId = dogForm.dataset.id
+            let dogName = dogForm.name.value
+            let dogBreed = dogForm.breed.value
+            let dogSex = dogForm.sex.value
+            
+            const dog = {
+                name: dogName,
+                breed: dogBreed,
+                sex: dogSex
+            }
+
+            let options = {
+                method: "PATCH",
+                headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                },
+                body: JSON.stringify(dog)
+            }
+
+            // console.log(baseUrl + ":" + dogId)
+            // console.log(options)
+            fetch(baseUrl + dogId, options)
+            fetchDogs()
+        })
     
-    
-    fetchBase()
-    dogsRow()
+    }
+
+
+    fetchDogs()
     clickHandler()
+    submitHandler()
 })
