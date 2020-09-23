@@ -1,72 +1,90 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    const baseUrl = " http://localhost:3000/dogs"
+   const baseUrl = "http://localhost:3000/dogs/"
     
-    function fetchDogs(baseUrl) {
-        fetch (baseUrl)
-        .then (resp => resp.json())
-        .then (data => renderDogs(data))
-    }
+   const fetchDogs = () => {
+    fetch(baseUrl)
+    .then(res => res.json())
+    .then(data => renderDogs(data))
+   };
 
-    function renderDogs(dogsArray) {
-        for (const dog of dogsArray) {
-            renderSingleDog(dog); 
-            }
-    }
+   const renderDogs = (dogs) => {
+    const tableBody = document.querySelector('#table-body')
+    tableBody.innerHTML = ''     
+    for (let dog of dogs) {
+           renderDog(dog, tableBody)
+       }
+   };
 
-    function renderSingleDog(dogObj) {
-        const dogTable = document.querySelector('table')
-        const dogRow = document.createElement('tr')
-        dogRow.classList.add('dog-row')
-        dogRow.dataset.dogId = dogObj.id
-        
-        dogRow.innerHTML = `
-            <td>${dogObj.name}</td>
-            <td>${dogObj.breed}</td>
-            <td>${dogObj.sex}</td>
-            <td><button class="edit">Edit Dog</button</td>
-            <button
-        `
-        dogTable.appendChild(dogRow)
-        
-    };
+   const renderDog = (dog, body) => { 
+    const dogTr = document.createElement('tr')
+    dogTr.dataset.dogId = dog.id
 
-    function clickHandler() {
+    dogTr.innerHTML = `
+    <td>${dog.name}</td> 
+    <td>${dog.breed}</td> 
+    <td>${dog.sex}</td> 
+    <td><button>Edit</button></td>
+    `
+    body.append(dogTr)
+   };
+//clicking edit puts dsingle dog info to form
+//so get data from table
+//populate form with that data
 
-        document.addEventListener('click', e => {
-            if (e.target.matches("edit")) {
-                const editButton = e.target
-                const editForm = document.querySelector("#dog-form")
-                const dogId = editButton.dataset.dogId
+    const clickHandler = () => {
+        document.addEventListener("click", (e) =>{
+            if (e.target.textContent === "Edit") {
 
+                const dogForm = document.querySelector("#dog-form")
+                const dogRow = e.target.closest('tr')
+                const dogId = dogRow.dataset.dogId
+
+                const cells = dogRow.children
+
+                const name = cells[0].textContent
+                const breed = cells[1].textContent
+                const sex = cells[2].textContent
+
+                dogForm.dataset.dogId = dogId
+                dogForm.name.value = name
+                dogForm.breed.value = breed
+                dogForm.sex.value = sex
             };
-
         });
-
     };
 
-    function editExistingDogs(dogObj) {
-        const dogForm = document.querySelector("#dog-form")
-        
-    };
-
-    function dogUpdate() {
+    const submitHandler = () =>{
+       document.addEventListener("submit", e => {
+        e.preventDefault()
+            const dogForm = e.target
+            let dogId = dogForm.dataset.dogId 
+            let name = dogForm.name.value 
+            let breed = dogForm.breed.value 
+            let sex = dogForm.sex.value 
+            
+            const dog = {
+                name: name,
+                breed: breed,
+                sex: sex,
+            }
         const options = {
             method: "PATCH",
             headers: {
-                "content-type":"application/json",
+                "content-type": "application/json",
                 "accept": "application/json"
             },
-            body: JSON.stringify({dogObj})
-
+            body: JSON.stringify(dog)
         }
         fetch(baseUrl + dogId, options)
-        .then(response => response.json())
-        .then (data => console.log(data))
+        .then(res => res.json())
+        .then(dog => fetchDogs())
+       }); 
+    }
+submitHandler();
+clickHandler();    
+fetchDogs()
 
-    };
-
-    clickHandler();
-    fetchDogs(baseUrl);
 });
+
+    
 
